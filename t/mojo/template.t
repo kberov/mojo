@@ -1130,6 +1130,11 @@ $file = abs_path catfile(dirname(__FILE__), 'templates', 'utf8_exception.mt');
 ok !eval { $mt->render_file($file) }, 'file not rendered';
 like $@, qr/invalid encoding/, 'right error';
 
+#Empty template
+$mt     = Mojo::Template->new;
+$file = abs_path catfile(dirname(__FILE__), 'templates', 'empty.mt');
+is($mt->render_file($file),'','empty template');
+
 # Custom escape function
 $mt = Mojo::Template->new(escape => sub { '+' . $_[0] });
 is $mt->render('<%== "hi" =%>'), '+hi', 'right escaped string';
